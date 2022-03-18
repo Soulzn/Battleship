@@ -23,19 +23,18 @@ public class Main {
         
         //Step 3 - Spawn monsters (Kraken and Cetus)
         deployMonsters();
-
+        
         //Step 4 - Battle by calling the Battle method as long as there aren't 0 Main.computerShips
         do {
             Battle();
         }while(Main.computerShips != 0);
-
-        //Step 5 - Ending game by calling the gameOver method
+        
+        //Step 5 - Score 
+        Score();
+        
+        //Step 6 - Ending game by calling the gameOver method
         gameOver();
-        
-        //Step 6 - Score
-        
-        //Score(); (work in progress)
-
+	
 	}
 	
 	public static void createOceanMap(){
@@ -80,7 +79,7 @@ public class Main {
                 i++;//i +1 and the for loop is run again
             }
         }
-        printOceanMap();//calls to the printOceanMap method
+        
     }
 	public static void deployMonsters(){
         System.out.println("\nMonsters creep into existence");
@@ -95,11 +94,11 @@ public class Main {
             if((x >= 0 && x < numRows) && (y >= 0 && y < numCols) && (grid[x][y] == " "))
             {
                 grid[x][y] =   "C";//puts an M on the grid
-                System.out.println(i + ". Cetus has arrived");
+                System.out.println(i + " Cetus has arrived");
                 i++;
             }
         }
-        printOceanMap();
+        
         //Spawning in a Kraken
         for (int i = 1; i <= Main.Kraken; ) {
             int x = (int)(Math.random() * 10);
@@ -108,25 +107,36 @@ public class Main {
             if((x >= 0 && x < numRows) && (y >= 0 && y < numCols) && (grid[x][y] == " "))
             {
                 grid[x][y] =   "K";//puts a K on the grid
-                System.out.println(i + ". Kraken has arrived");
+                System.out.println(i + " Kraken has arrived");
                 i++;
             }
         }
-        printOceanMap();
+        printOceanMap();//calls to the printOceanMap method
     }
-	/*
+	
 	public static void Score() {
-		System.out.println();
 		if (Main.computerShips == 4) {
 			++Main.Score;
-			System.out.println();
+		}
+		if (Main.computerShips == 3) {
+			++Main.Score;
+		}
+		if (Main.computerShips == 2) {
+			++Main.Score;
+		}
+		if (Main.computerShips == 1) {
+			++Main.Score;
+		}
+		if (Main.computerShips == 0) {
+			++Main.Score;
 		}
 	}
-	*/
+	
 	//Score is a work in progress
 	public static void Battle(){
         playerTurn();
         printOceanMap();
+        Score();
 
         System.out.println();
         System.out.println("Ships: " + Main.computerShips);
@@ -135,7 +145,7 @@ public class Main {
         System.out.println();
     }
 	public static void playerTurn(){
-        System.out.println("\nshoot again");
+        System.out.println("\nshoot");
         int x = -1, y = -1;
         do {
             Scanner input = new Scanner(System.in);
@@ -207,7 +217,7 @@ public class Main {
         System.out.println();
     }
 	public static void gameOver(){
-        System.out.println( "Ships: " + Main.computerShips);
+        System.out.println("No more ships left!");
         if(Main.computerShips <= 0)//displays the number of ships left
             System.out.println("Hooray! You won the battle :)");//prints when all ships are sunk
    }
