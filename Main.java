@@ -115,23 +115,36 @@ public class Main {
     }
 	
 	public static void Score() {
-		if (Main.computerShips == 4) {
+		if (Main.computerShips == 4) {//1 ship sunk
+			++Main.Score;//add 1
+		}
+		if (Main.computerShips == 3) {//2 ships sunk
+			++Main.Score;//add 1
+		}
+		if (Main.computerShips == 2) {//3...
 			++Main.Score;
 		}
-		if (Main.computerShips == 3) {
+		if (Main.computerShips == 1) {//4
 			++Main.Score;
 		}
-		if (Main.computerShips == 2) {
+		if (Main.computerShips == 0) {//5
 			++Main.Score;
 		}
-		if (Main.computerShips == 1) {
-			++Main.Score;
+		if (Main.Kraken == 0) {//Kraken is hit
+			Main.Score = 0;//Kraken eats all your score
 		}
-		if (Main.computerShips == 0) {
-			++Main.Score;
+		if (Main.Cetus == 0) {//Cetus is hit
+			++Main.computerShips;//unsinks ship
+			int x = (int)(Math.random() * 10);
+            int y = (int)(Math.random() * 10);
+
+            if((x >= 0 && x < numRows) && (y >= 0 && y < numCols) && (grid[x][y] == " "))//checks if everything is correct (x and y aren't outside the boundary and there's nothing on the grid)
+            {
+                grid[x][y] =   "x";
+                printOceanMap();
+            }
 		}
 	}
-	
 	//Score is a work in progress
 	public static void Battle(){
         playerTurn();
@@ -169,7 +182,7 @@ public class Main {
                 if (grid[x][y] == "C") //if computer ship is already there; it sinks
                 {
                     System.out.println("You hit a monster!");
-                    grid[x][y] = "h"; //Hit mark
+                    grid[x][y] = "H"; //Hit mark
                     --Main.Cetus;
                 }
                 else if (grid[x][y] == " ") {
@@ -179,7 +192,7 @@ public class Main {
                 if (grid[x][y] == "K") //if computer ship is already there; it sinks
                 {
                     System.out.println("You hit a monster!");
-                    grid[x][y] = "h"; //Hit mark
+                    grid[x][y] = "H"; //Hit mark
                     --Main.Kraken;
                 }
                 else if (grid[x][y] == " ") {
