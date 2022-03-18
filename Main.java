@@ -3,7 +3,7 @@ import java.util.*;
 public class Main {
 	public static int numRows = 10;//defining the number of rows for the map
     public static int numCols = 10;//defining the number of columns for the map
-    public static int computerShips;//the number of ships that will be used
+    public static int Ships;//the number of ships that will be used
     public static int Cetus;
     public static int Kraken;
     public static String[][] grid = new String[numRows][numCols];
@@ -18,16 +18,16 @@ public class Main {
         //Step 1 – Create the game map by calling for createOceanMap method
         createOceanMap();
 
-        //Step 2 - Spawn computer's ships by calling for deployComputerShips method
-        deployComputerShips();
+        //Step 2 - Spawn computer's ships by calling for deployShips method
+        deployShips();
         
         //Step 3 - Spawn monsters (Kraken and Cetus)
         deployMonsters();
         
-        //Step 4 - Battle by calling the Battle method as long as there aren't 0 Main.computerShips
+        //Step 4 - Battle by calling the Battle method as long as there aren't 0 Main.Ships
         do {
             Battle();
-        }while(Main.computerShips != 0);
+        }while(Main.Ships != 0);
         
         //Step 5 - Score 
         Score();
@@ -64,11 +64,11 @@ public class Main {
             System.out.print(i);
         System.out.println();
     }
-	public static void deployComputerShips(){
+	public static void deployShips(){
         System.out.println("\nComputer is deploying ships");
         //Deploying five ships for computer
-        Main.computerShips = 5;
-        for (int i = 1; i <= Main.computerShips; ) {
+        Main.Ships = 5;
+        for (int i = 1; i <= Main.Ships; ) {
             int x = (int)(Math.random() * 10);
             int y = (int)(Math.random() * 10);
 
@@ -115,26 +115,26 @@ public class Main {
     }
 	
 	public static void Score() {
-		if (Main.computerShips == 4) {//1 ship sunk
+		if (Main.Ships == 4) {//1 ship sunk
 			++Main.Score;//add 1
 		}
-		if (Main.computerShips == 3) {//2 ships sunk
+		if (Main.Ships == 3) {//2 ships sunk
 			++Main.Score;//add 1
 		}
-		if (Main.computerShips == 2) {//3...
+		if (Main.Ships == 2) {//3...
 			++Main.Score;
 		}
-		if (Main.computerShips == 1) {//4
+		if (Main.Ships == 1) {//4
 			++Main.Score;
 		}
-		if (Main.computerShips == 0) {//5
+		if (Main.Ships == 0) {//5
 			++Main.Score;
 		}
 		if (Main.Kraken == 0) {//Kraken is hit
 			Main.Score = 0;//Kraken eats all your score
 		}
 		if (Main.Cetus == 0) {//Cetus is hit
-			++Main.computerShips;//unsinks ship
+			++Main.Ships;//unsinks ship
 			int x = (int)(Math.random() * 10);
             int y = (int)(Math.random() * 10);
 
@@ -152,7 +152,7 @@ public class Main {
         Score();
 
         System.out.println();
-        System.out.println("Ships: " + Main.computerShips);
+        System.out.println("Ships: " + Main.Ships);
         System.out.println("Kraken: " + Main.Kraken + "\nCetus: " + Main.Cetus);
         System.out.println("Score: " + Main.Score);
         System.out.println();
@@ -173,11 +173,12 @@ public class Main {
                 {
                     System.out.println("My ship was hit!");
                     grid[x][y] = "H"; //Hit mark
-                    --Main.computerShips;
+                    --Main.Ships;
                 }
                 else if (grid[x][y] == " ") {
                     System.out.println("you missed!");
                     grid[x][y] = "M";
+                    --Main.Score;
                 }
                 if (grid[x][y] == "C") //if computer ship is already there; it sinks
                 {
@@ -188,6 +189,7 @@ public class Main {
                 else if (grid[x][y] == " ") {
                     System.out.println("you missed!");
                     grid[x][y] = "M";
+                    --Main.Score;
                 }
                 if (grid[x][y] == "K") //if computer ship is already there; it sinks
                 {
@@ -198,6 +200,7 @@ public class Main {
                 else if (grid[x][y] == " ") {
                     System.out.println("you missed!");
                     grid[x][y] = "M";
+                    --Main.Score;
                 }
             }
             else if ((x < 0 || x >= numRows) || (y < 0 || y >= numCols))  //invalid guess
@@ -231,7 +234,7 @@ public class Main {
     }
 	public static void gameOver(){
         System.out.println("No more ships left!");
-        if(Main.computerShips <= 0)//displays the number of ships left
+        if(Main.Ships <= 0)//displays the number of ships left
             System.out.println("Hooray! You won the battle :)");//prints when all ships are sunk
    }
 	
