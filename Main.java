@@ -15,7 +15,7 @@ public class Main {
 		System.out.println("**** Welcome to Battle Ships game ****");
         System.out.println("Right now, sea is empty\n");
 
-        //Step 1 – Create the game map by calling for createOceanMap method
+        //Step 1 - Create the game map by calling for createOceanMap method
         createOceanMap();
 
         //Step 2 - Spawn computer's ships by calling for deployShips method
@@ -135,8 +135,8 @@ public class Main {
 		}
 		if (Main.Cetus == 0) {//Cetus is hit
 			++Main.Ships;//unsinks ship
-			int x = (int)(Math.random() * 10);
-            int y = (int)(Math.random() * 10);
+			int x = (int)(Math.random() * 10);//random number horizontally
+            int y = (int)(Math.random() * 10);//random number vertically
 
             if((x >= 0 && x < numRows) && (y >= 0 && y < numCols) && (grid[x][y] == " "))//checks if everything is correct (x and y aren't outside the boundary and there's nothing on the grid)
             {
