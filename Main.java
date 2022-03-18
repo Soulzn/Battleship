@@ -12,18 +12,18 @@ public class Main {
 		System.out.println("**** Welcome to Battle Ships game ****");
         System.out.println("Right now, sea is empty\n");
 
-        //Step 1 – Create the game map
+        //Step 1 – Create the game map by calling for createOceanMap method
         createOceanMap();
 
-        //Step 2 - Spawn computer's ships
+        //Step 2 - Spawn computer's ships by calling for deployComputerShips method
         deployComputerShips();
 
-        //Step 3 - Battle
+        //Step 3 - Battle by calling the Battle method as long as there aren't 0 Main.computerShips
         do {
             Battle();
         }while(Main.computerShips != 0);
 
-        //Step 4 - Game Over
+        //Step 4 - Ending game by calling the gameOver method
         gameOver();
 
 	}
@@ -63,14 +63,14 @@ public class Main {
             int x = (int)(Math.random() * 10);
             int y = (int)(Math.random() * 10);
 
-            if((x >= 0 && x < numRows) && (y >= 0 && y < numCols) && (grid[x][y] == " "))
+            if((x >= 0 && x < numRows) && (y >= 0 && y < numCols) && (grid[x][y] == " "))//checks if everything is correct (x and y aren't outside the boundary and there's nothing on the grid)
             {
-                grid[x][y] =   "x";
-                System.out.println(i + ". ship DEPLOYED");
-                i++;
+                grid[x][y] =   "x";//puts an x on the grid
+                System.out.println(i + ". ship DEPLOYED");//shows the user that the ship is deployed
+                i++;//i +1 and the for loop is run again
             }
         }
-        printOceanMap();
+        printOceanMap();//calls to the printOceanMap method on line 110
     }
 	public static void Battle(){
         playerTurn();
@@ -117,13 +117,13 @@ public class Main {
 
         //Middle section of Ocean Map
         for(int x = 0; x < grid.length; x++) {
-            System.out.print(x + "|");
+            System.out.print(x + "|");//sets up numbers on the vertical side of the grid
 
-            for (int y = 0; y < grid[x].length; y++){
+            for (int y = 0; y < grid[x].length; y++){//does the same thing but horizontally
                 System.out.print(grid[x][y]);
             }
 
-            System.out.println("|" + x);
+            System.out.println("|" + x);//sets up numbers on the vertical side on the other side
         }
 
         //Last section of Ocean Map
@@ -133,12 +133,9 @@ public class Main {
         System.out.println();
     }
 	public static void gameOver(){
-        System.out.println( "Computer ships: " + Main.computerShips);
-        if(Main.computerShips <= 0)
-            System.out.println("Hooray! You won the battle :)");
-        else
-            System.out.println("Sorry, you lost the battle");
-        System.out.println();
+        System.out.println( "Ships: " + Main.computerShips);
+        if(Main.computerShips <= 0)//displays the number of ships left
+            System.out.println("Hooray! You won the battle :)");//prints when all ships are sunk
    }
 	
 }
