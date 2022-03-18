@@ -114,7 +114,8 @@ public class Main {
         printOceanMap();
 
         System.out.println();
-        System.out.println("Computer ships: " + Main.computerShips);
+        System.out.println("Ships: " + Main.computerShips);
+        System.out.println("Kraken: " + Main.Kraken + "\nCetus: " + Main.Cetus);
         System.out.println();
     }
 	public static void playerTurn(){
@@ -122,10 +123,10 @@ public class Main {
         int x = -1, y = -1;
         do {
             Scanner input = new Scanner(System.in);
-            System.out.print("Enter Y coordinate: ");
-            x = input.nextInt();
             System.out.print("Enter X coordinate: ");
             y = input.nextInt();
+            System.out.print("Enter Y coordinate: ");
+            x = input.nextInt();
 
             if ((x >= 0 && x < numRows) && (y >= 0 && y < numCols)) //valid guess
             {
@@ -134,6 +135,26 @@ public class Main {
                     System.out.println("My ship was hit!");
                     grid[x][y] = "H"; //Hit mark
                     --Main.computerShips;
+                }
+                else if (grid[x][y] == " ") {
+                    System.out.println("you missed!");
+                    grid[x][y] = "M";
+                }
+                if (grid[x][y] == "C") //if computer ship is already there; it sinks
+                {
+                    System.out.println("You hit a monster!");
+                    grid[x][y] = "H"; //Hit mark
+                    --Main.Cetus;
+                }
+                else if (grid[x][y] == " ") {
+                    System.out.println("you missed!");
+                    grid[x][y] = "M";
+                }
+                if (grid[x][y] == "K") //if computer ship is already there; it sinks
+                {
+                    System.out.println("You hit a monster!");
+                    grid[x][y] = "H"; //Hit mark
+                    --Main.Kraken;
                 }
                 else if (grid[x][y] == " ") {
                     System.out.println("you missed!");
