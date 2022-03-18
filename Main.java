@@ -8,6 +8,7 @@ public class Main {
     public static int Kraken;
     public static String[][] grid = new String[numRows][numCols];
     public static int[][] missedGuesses = new int[numRows][numCols];
+    public static int Score;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -30,6 +31,10 @@ public class Main {
 
         //Step 5 - Ending game by calling the gameOver method
         gameOver();
+        
+        //Step 6 - Score
+        
+        //Score(); (work in progress)
 
 	}
 	
@@ -75,7 +80,7 @@ public class Main {
                 i++;//i +1 and the for loop is run again
             }
         }
-        printOceanMap();//calls to the printOceanMap method on line 146
+        printOceanMap();//calls to the printOceanMap method
     }
 	public static void deployMonsters(){
         System.out.println("\nMonsters creep into existence");
@@ -109,6 +114,16 @@ public class Main {
         }
         printOceanMap();
     }
+	/*
+	public static void Score() {
+		System.out.println();
+		if (Main.computerShips == 4) {
+			++Main.Score;
+			System.out.println();
+		}
+	}
+	*/
+	//Score is a work in progress
 	public static void Battle(){
         playerTurn();
         printOceanMap();
@@ -116,6 +131,7 @@ public class Main {
         System.out.println();
         System.out.println("Ships: " + Main.computerShips);
         System.out.println("Kraken: " + Main.Kraken + "\nCetus: " + Main.Cetus);
+        System.out.println("Score: " + Main.Score);
         System.out.println();
     }
 	public static void playerTurn(){
@@ -143,7 +159,7 @@ public class Main {
                 if (grid[x][y] == "C") //if computer ship is already there; it sinks
                 {
                     System.out.println("You hit a monster!");
-                    grid[x][y] = "H"; //Hit mark
+                    grid[x][y] = "h"; //Hit mark
                     --Main.Cetus;
                 }
                 else if (grid[x][y] == " ") {
@@ -153,7 +169,7 @@ public class Main {
                 if (grid[x][y] == "K") //if computer ship is already there; it sinks
                 {
                     System.out.println("You hit a monster!");
-                    grid[x][y] = "H"; //Hit mark
+                    grid[x][y] = "h"; //Hit mark
                     --Main.Kraken;
                 }
                 else if (grid[x][y] == " ") {
@@ -164,7 +180,7 @@ public class Main {
             else if ((x < 0 || x >= numRows) || (y < 0 || y >= numCols))  //invalid guess
                 System.out.println("You can't place ships outside the " + numRows + " by " + numCols + " grid");
         }while((x < 0 || x >= numRows) || (y < 0 || y >= numCols));  //keep re-prompting till valid guess
-    }
+    }	
 	public static void printOceanMap(){
         System.out.println();
         //First section of Ocean Map
