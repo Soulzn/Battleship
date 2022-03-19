@@ -78,8 +78,7 @@ public class Main {
                 System.out.println(i + ". ship DEPLOYED");//shows the user that the ship is deployed
                 i++;//i +1 and the for loop is run again
             }
-        }
-        
+        }        
     }
 	public static void deployMonsters(){
         System.out.println("\nMonsters creep into existence");
@@ -115,6 +114,10 @@ public class Main {
     }
 	
 	public static void Score() {
+		var isHit = false;
+		if (Main.Ships == 5) {//1 ship sunk after cetus hit
+			++Main.Score;//add 1
+		}
 		if (Main.Ships == 4) {//1 ship sunk
 			++Main.Score;//add 1
 		}
@@ -132,17 +135,24 @@ public class Main {
 		}
 		if (Main.Kraken == 0) {//Kraken is hit
 			Main.Score = 0;//Kraken eats all your score
+			isHit = true;
 		}
 		if (Main.Cetus == 0) {//Cetus is hit
+			isHit = true;
 			++Main.Ships;//unsinks ship
 			int x = (int)(Math.random() * 10);//random number horizontally
             int y = (int)(Math.random() * 10);//random number vertically
+            System.out.println(Main.Cetus);
 
             if((x >= 0 && x < numRows) && (y >= 0 && y < numCols) && (grid[x][y] == " "))//checks if everything is correct (x and y aren't outside the boundary and there's nothing on the grid)
             {
                 grid[x][y] =   "x";
                 printOceanMap();
             }
+		}
+		if (isHit = true) {
+			Main.Cetus = 1;
+			Main.Kraken = 1;
 		}
 	}
 	//Score is a work in progress
@@ -153,7 +163,6 @@ public class Main {
 
         System.out.println();
         System.out.println("Ships: " + Main.Ships);
-        System.out.println("Kraken: " + Main.Kraken + "\nCetus: " + Main.Cetus);
         System.out.println("Score: " + Main.Score);
         System.out.println();
     }
