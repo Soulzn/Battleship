@@ -1,10 +1,12 @@
+package qweadsasdadasdf;
 import java.util.*;
 
 public class Main {
 	public static int numRows = 10;//defining the number of rows for the map
     public static int numCols = 10;//defining the number of columns for the map
-    public static int Ships;//the number of ships that will be used
-    public static int Cetus;
+    public static int Ships; //the ships
+    public static Dictionary shipInfo = new Hashtable();
+    public static int Cetus; //
     public static int Kraken;
     public static String[][] grid = new String[numRows][numCols];
     public static int[][] missedGuesses = new int[numRows][numCols];
@@ -67,17 +69,50 @@ public class Main {
 	public static void deployShips(){
         System.out.println("\nComputer is deploying ships");
         //Deploying five ships for computer
+        List<Integer> shipSizes = new ArrayList<>();
+        Collections.addAll(shipSizes, 5, 4, 3, 3, 2);
+        List<Integer> listContainer = new ArrayList<>();
         Main.Ships = 5;
         for (int i = 1; i <= Main.Ships; ) {
             int x = (int)(Math.random() * 10);
             int y = (int)(Math.random() * 10);
-
-            if((x >= 0 && x < numRows) && (y >= 0 && y < numCols) && (grid[x][y] == " "))//checks if everything is correct (x and y aren't outside the boundary and there's nothing on the grid)
-            {
-                grid[x][y] =   "x";//puts an x on the grid
-                System.out.println(i + ". ship DEPLOYED");//shows the user that the ship is deployed
-                i++;//i +1 and the for loop is run again
-            }
+            int direction = (int)(Math.random() * 4);
+            int deleteShip = (int)(Math.random() * shipSizes.size());
+            int shipSize = shipSizes.get(deleteShip);
+            
+            shipSizes.stream()
+  		    .skip(deleteShip)
+  		    .forEachOrdered(listContainer::add);
+            
+            listContainer.stream()
+  		    .forEachOrdered(shipSizes::add);
+            for (int peep = 0; peep < shipSize; peep++) {
+            	if (peep == 0) {
+            		//haha empty code so it doesn't shit itself and move the original coordinate
+            	}
+            	else {
+            		switch (direction) { // x and y are inverted because haha funny monkey
+            		case 0:
+            			x = x-1;
+            		case 1:
+            			y = y+1;
+            		case 2:
+            			x = x+1;
+            		case 3:
+            			y = y-1;
+        			}
+            	}
+            	
+            	if((x >= 0 && x < numRows) && (y >= 0 && y < numCols) && (grid[x][y] == " "))
+                {
+                    grid[x][y] =   "x";//puts an x on the grid
+                    System.out.println(i + ". ship DEPLOYED");//shows the user that the ship is deployed
+                    i++;//i +1 and the for loop is run again
+                }
+            	
+            	}
+            
+            
         }        
     }
 	public static void deployMonsters(){
